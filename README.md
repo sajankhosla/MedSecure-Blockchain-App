@@ -1,50 +1,78 @@
-# Welcome to your Expo app 👋
+# MedSecure: Blockchain-Based Clinical Data Consent App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application that allows patients to securely manage consent for their medical data in clinical research using blockchain technology.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **QR Code Scanning**: Easily scan QR codes to initiate the consent process for clinical studies
+- **Secure Blockchain Wallet**: Create or import blockchain wallets for secure identity management
+- **Granular Consent Control**: Choose exactly which data to share and with whom
+- **Consent Management**: View and revoke consent at any time
+- **User-friendly Interface**: Clean, modern UI following Apple's Human Interface Guidelines
 
-   ```bash
-   npm install
-   ```
+## User Flow
 
-2. Start the app
+1. **Welcome Screen**: Introduction to the app's features and benefits
+2. **QR Code Scanning**: Scan a study-specific QR code to begin the process
+3. **Wallet Setup**: Create a new blockchain wallet or import an existing one
+4. **Consent Management**: Review and grant consent for specific data types
+5. **Dashboard**: Overview of active consents with management options
 
-   ```bash
-    npx expo start
-   ```
+## Technical Stack
 
-In the output, you'll find options to open the app in a
+- React Native with Expo
+- TypeScript for type safety
+- Ethers.js for blockchain interactions
+- Expo Secure Store for secure storage
+- React Navigation for routing
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Prerequisites
 
-## Get a fresh project
+- Node.js (v14 or later)
+- npm or yarn
+- Expo CLI
 
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+# Clone the repository
+git clone <repository-url>
+cd pharma-blockchain-app
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Security Considerations
 
-## Learn more
+- Private keys are stored securely using Expo Secure Store
+- All blockchain transactions are signed locally on the device
+- No private keys or sensitive data are transmitted over the network
+- Consents are stored on the blockchain for transparency and immutability
 
-To learn more about developing your project with Expo, look at the following resources:
+## Design Philosophy
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The application follows Apple's Human Interface Guidelines with:
 
-## Join the community
+- Clean, minimal interface
+- Intuitive navigation
+- Clear feedback for user actions
+- Accessibility features
+- Dark and light mode support
 
-Join our community of developers creating universal apps.
+## Future Enhancements
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Integration with real clinical trial systems
+- Multi-signature consent requirements
+- Enhanced data visualization
+- Support for additional blockchain networks
+- Integration with health data standards (FHIR, HL7)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
