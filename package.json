@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "build:web": "npx expo export:web",
     "export": "npx expo export",
+    "vercel-build": "npx expo export:web",
     "test": "jest --watchAll",
     "lint": "expo lint"
   },
