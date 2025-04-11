@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "build:web": "npx expo export --platform web",
     "export": "npx expo export",
-    "vercel-build": "npx expo export --platform web",
+    "vercel-build": "npm install --legacy-peer-deps && npx expo export --platform web",
     "test": "jest --watchAll",
     "lint": "expo lint"
   },
