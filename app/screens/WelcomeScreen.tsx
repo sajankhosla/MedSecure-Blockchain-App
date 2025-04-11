@@ -13,6 +13,12 @@ const WelcomeScreen = () => {
   const colorScheme = useColorScheme() as 'light' | 'dark';
 
   const handleGetStarted = () => {
+    // For web platform, use direct window location change
+    if (typeof window !== 'undefined') {
+      window.location.href = '/scan';
+      return;
+    }
+    // For native platforms, use expo-router
     router.push('/scan');
   };
 

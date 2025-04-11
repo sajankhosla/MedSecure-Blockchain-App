@@ -21,6 +21,12 @@ const SetupWalletScreen = () => {
   const handleCreateWallet = async () => {
     try {
       await createWallet();
+      // For web platform, use direct window location change
+      if (typeof window !== 'undefined') {
+        window.location.href = '/consent';
+        return;
+      }
+      // For native platforms, use expo-router
       router.push('/consent');
     } catch (err) {
       Alert.alert('Error', 'Failed to create wallet. Please try again.');
@@ -36,6 +42,12 @@ const SetupWalletScreen = () => {
     try {
       await importWallet(privateKey);
       if (!error) {
+        // For web platform, use direct window location change
+        if (typeof window !== 'undefined') {
+          window.location.href = '/consent';
+          return;
+        }
+        // For native platforms, use expo-router
         router.push('/consent');
       }
     } catch (err) {

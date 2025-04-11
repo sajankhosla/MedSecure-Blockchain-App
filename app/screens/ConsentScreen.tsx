@@ -103,6 +103,12 @@ const ConsentScreen = () => {
       }
 
       // Navigate to success/dashboard screen
+      // For web platform, use direct window location change
+      if (typeof window !== 'undefined') {
+        window.location.href = '/dashboard';
+        return;
+      }
+      // For native platforms, use expo-router
       router.push('/dashboard');
     } catch (error) {
       Alert.alert(
