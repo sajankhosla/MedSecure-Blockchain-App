@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan QR Code - MedSecure</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f7;
+      color: #333;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      color: #333;
+    }
+    .description {
+      font-size: 16px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .steps {
+      margin-bottom: 32px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .step-number {
+      background-color: #007AFF;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .demo-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .demo-card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .demo-card-text {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    .mock-qr {
+      width: 120px;
+      height: 120px;
+      border: 1px solid #ccc;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .mock-qr-inner {
+      width: 80px;
+      height: 80px;
+      background-color: #ccc;
+    }
+    .mock-qr-text {
+      font-size: 12px;
+      color: #333;
+      text-align: center;
+      margin-top: 4px;
+    }
+    .mock-qr-id {
+      font-size: 10px;
+      color: #999;
+      text-align: center;
+    }
+    .button {
+      background-color: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      text-align: center;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #0069DB;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 16px;
+    }
+    .back-link a {
+      color: #007AFF;
+      text-decoration: none;
+    }
+    .scanner-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 100;
+    }
+    .scanner-view {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .scanner-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 3px solid #007AFF;
+      border-radius: 16px;
+    }
+    .scan-line {
+      position: absolute;
+      height: 2px;
+      background-color: #007AFF;
+      top: 50%;
+      left: 0;
+      right: 0;
+      animation: scan 2s linear infinite;
+    }
+    @keyframes scan {
+      0% { transform: translateY(-50px); opacity: 0.5; }
+      50% { transform: translateY(50px); opacity: 1; }
+      100% { transform: translateY(-50px); opacity: 0.5; }
+    }
+    .success-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 122, 255, 0.9);
+      border-radius: 16px;
+      color: white;
+    }
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .success-text {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .redirect-text {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Scan Study QR Code</h1>
+      <p class="description">
+        To begin the enrollment process, scan the QR code provided by your healthcare provider or clinical trial coordinator.
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-text">Point your camera at the QR code</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-text">Hold steady until the code is recognized</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-text">You'll be prompted to set up your secure account</div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-card-title">Demo QR Code</div>
+      <div class="demo-card-text">
+        For demonstration purposes, you can use our mock QR code scanner to simulate the enrollment process.
+      </div>
+      <div class="mock-qr">
+        <div class="mock-qr-inner"></div>
+        <div class="mock-qr-text">MedSecure Study</div>
+        <div class="mock-qr-id">STUDY-2023-12345</div>
+      </div>
+    </div>
+
+    <button class="button" id="start-scanning">Start Scanning</button>
+    
+    <div class="back-link">
+      <a href="index.html">← Back to home</a>
+    </div>
+  </div>
+
+  <div class="scanner-container" id="scanner">
+    <div class="scanner-view">
+      <div class="scanner-frame"></div>
+      <div class="scan-line"></div>
+      <div class="success-message" id="success">
+        <div class="success-icon">✓</div>
+        <div class="success-text">QR Code Scanned!</div>
+        <div class="redirect-text">Redirecting to wallet setup...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('start-scanning').addEventListener('click', function() {
+      const scanner = document.getElementById('scanner');
+      const success = document.getElementById('success');
+      
+      scanner.style.display = 'block';
+      
+      // Simulate scanning success after 3 seconds
+      setTimeout(function() {
+        success.style.display = 'flex';
+        
+        // Redirect after showing success message for 1.5 seconds
+        setTimeout(function() {
+          window.location.href = 'setup-wallet.html';
+        }, 1500);
+      }, 3000);
+    });
+  </script>
+</body>
+</html> 

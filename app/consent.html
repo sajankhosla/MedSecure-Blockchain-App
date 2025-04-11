@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Consent - MedSecure</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f7;
+      color: #333;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .header {
+      margin-bottom: 24px;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .wallet-address {
+      font-size: 14px;
+      color: #999;
+    }
+    .description {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .consent-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+    }
+    .consent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .consent-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .required-badge {
+      font-size: 12px;
+      color: #007AFF;
+      margin-top: 4px;
+    }
+    .consent-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #007AFF;
+    }
+    input:disabled + .slider {
+      opacity: 0.5;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .legal-section {
+      margin-bottom: 24px;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      margin-right: 12px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .checkbox.checked {
+      background-color: #007AFF;
+      border-color: #007AFF;
+    }
+    .checkbox.checked:after {
+      content: "✓";
+      position: absolute;
+      color: white;
+      font-size: 14px;
+      top: 0;
+      left: 4px;
+    }
+    .checkbox-text {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .link {
+      color: #007AFF;
+      text-decoration: underline;
+    }
+    .note-card {
+      background-color: rgba(0, 122, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .note-icon {
+      color: #007AFF;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .note-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .button {
+      background-color: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+    .button:hover {
+      background-color: #0069DB;
+    }
+    .button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .back-link {
+      text-align: center;
+    }
+    .back-link a {
+      color: #007AFF;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Data Consent</h1>
+      <div class="wallet-address">Wallet: 0x7a2F...3E4d</div>
+    </div>
+    
+    <p class="description">
+      Control which data you share with researchers. Your data is securely stored and
+      can only be accessed with your explicit consent.
+    </p>
+    
+    <div id="consent-list">
+      <div class="consent-card">
+        <div class="consent-header">
+          <div>
+            <div class="consent-title">Demographic Data</div>
+            <div class="required-badge">Required</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked disabled>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="consent-description">
+          Share basic demographic information like age, gender, and ethnicity for research categorization.
+        </div>
+      </div>
+      
+      <div class="consent-card">
+        <div class="consent-header">
+          <div>
+            <div class="consent-title">Medical History</div>
+            <div class="required-badge">Required</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked disabled>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="consent-description">
+          Share relevant medical history information for better contextual understanding of research findings.
+        </div>
+      </div>
+      
+      <div class="consent-card">
+        <div class="consent-header">
+          <div>
+            <div class="consent-title">Treatment Outcomes</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="treatment-outcomes">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="consent-description">
+          Share data about how treatments affected your condition to improve future treatments.
+        </div>
+      </div>
+      
+      <div class="consent-card">
+        <div class="consent-header">
+          <div>
+            <div class="consent-title">Genetic Information</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="genetic-info">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="consent-description">
+          Share de-identified genetic data for research on genetic factors in disease and treatment.
+        </div>
+      </div>
+      
+      <div class="consent-card">
+        <div class="consent-header">
+          <div>
+            <div class="consent-title">Future Research</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="future-research">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="consent-description">
+          Allow your de-identified data to be used in future clinical research studies.
+        </div>
+      </div>
+    </div>
+    
+    <div class="legal-section">
+      <div class="checkbox-row" id="privacy-row">
+        <div class="checkbox" id="privacy-checkbox"></div>
+        <div class="checkbox-text">
+          I have read and agree to the <span class="link">Privacy Policy</span>
+        </div>
+      </div>
+      
+      <div class="checkbox-row" id="terms-row">
+        <div class="checkbox" id="terms-checkbox"></div>
+        <div class="checkbox-text">
+          I have read and agree to the <span class="link">Terms of Service</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="note-card">
+      <div class="note-icon">ℹ️</div>
+      <div class="note-text">
+        You can change your consent preferences at any time from your dashboard.
+      </div>
+    </div>
+    
+    <button class="button" id="submit-consent" disabled>Submit Consent</button>
+    
+    <div class="back-link">
+      <a href="setup-wallet.html">← Back to wallet setup</a>
+    </div>
+  </div>
+
+  <script>
+    // Checkboxes
+    const privacyRow = document.getElementById('privacy-row');
+    const privacyCheckbox = document.getElementById('privacy-checkbox');
+    const termsRow = document.getElementById('terms-row');
+    const termsCheckbox = document.getElementById('terms-checkbox');
+    
+    // Button
+    const submitButton = document.getElementById('submit-consent');
+    
+    // Toggle privacy checkbox
+    privacyRow.addEventListener('click', function() {
+      privacyCheckbox.classList.toggle('checked');
+      updateSubmitButton();
+    });
+    
+    // Toggle terms checkbox
+    termsRow.addEventListener('click', function() {
+      termsCheckbox.classList.toggle('checked');
+      updateSubmitButton();
+    });
+    
+    // Enable/disable submit button based on agreement checkboxes
+    function updateSubmitButton() {
+      if (privacyCheckbox.classList.contains('checked') && 
+          termsCheckbox.classList.contains('checked')) {
+        submitButton.disabled = false;
+      } else {
+        submitButton.disabled = true;
+      }
+    }
+    
+    // Submit consent
+    submitButton.addEventListener('click', function() {
+      submitButton.textContent = 'Processing...';
+      submitButton.disabled = true;
+      
+      // Simulate processing with a delay
+      setTimeout(function() {
+        window.location.href = 'dashboard.html';
+      }, 1500);
+    });
+  </script>
+</body>
+</html> 

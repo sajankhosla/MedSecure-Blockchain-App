@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Wallet - MedSecure</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f7;
+      color: #333;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      color: #333;
+    }
+    .description {
+      font-size: 16px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .card-text {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .card-outlined {
+      background-color: transparent;
+      border: 1px solid #ddd;
+    }
+    .button {
+      background-color: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 16px;
+    }
+    .button:hover {
+      background-color: #0069DB;
+    }
+    .button-outline {
+      background-color: transparent;
+      color: #007AFF;
+      border: 1px solid #007AFF;
+    }
+    .button-outline:hover {
+      background-color: rgba(0, 122, 255, 0.05);
+    }
+    .feature-list {
+      margin-bottom: 24px;
+    }
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .feature-icon {
+      color: #34C759;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .feature-text {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .note-card {
+      background-color: rgba(0, 122, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .note-icon {
+      color: #007AFF;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .note-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .button-row {
+      display: flex;
+      gap: 16px;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 16px;
+    }
+    .back-link a {
+      color: #007AFF;
+      text-decoration: none;
+    }
+    .hidden {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .form-input:focus {
+      border-color: #007AFF;
+      outline: none;
+    }
+    .form-error {
+      color: #FF3B30;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Secure Blockchain Wallet</h1>
+      <p class="description">
+        To securely store and control your medical data, you'll need a blockchain wallet. This wallet serves as your digital identity and gives you control over your health data.
+      </p>
+    </div>
+
+    <!-- Selection Mode -->
+    <div id="select-mode">
+      <div class="card">
+        <div class="card-title">Create New Wallet</div>
+        <div class="card-text">
+          Recommended for new users. We'll create a secure blockchain wallet for you.
+        </div>
+        <button class="button" id="create-mode-btn">Create New Wallet</button>
+      </div>
+      
+      <div class="card card-outlined">
+        <div class="card-title">Import Existing Wallet</div>
+        <div class="card-text">
+          Already have a blockchain wallet? Import it using your private key.
+        </div>
+        <button class="button button-outline" id="import-mode-btn">Import Wallet</button>
+      </div>
+    </div>
+
+    <!-- Create Wallet Mode -->
+    <div id="create-mode" class="hidden">
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div class="feature-text">Securely store your identity on the blockchain</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div class="feature-text">Give you complete control over your medical data</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">✓</div>
+          <div class="feature-text">Allow you to grant and revoke consent easily</div>
+        </div>
+      </div>
+      
+      <div class="note-card">
+        <div class="note-icon">ℹ️</div>
+        <div class="note-text">
+          In the next step, you'll receive a recovery phrase. Keep it safe as it's the only way to recover your wallet.
+        </div>
+      </div>
+      
+      <div class="button-row">
+        <button class="button button-outline" id="back-from-create">Back</button>
+        <button class="button" id="create-wallet-btn">Create Wallet</button>
+      </div>
+    </div>
+
+    <!-- Import Wallet Mode -->
+    <div id="import-mode" class="hidden">
+      <div class="form-group">
+        <label class="form-label">Private Key</label>
+        <input type="password" class="form-input" id="private-key" placeholder="Enter your private key">
+        <div class="form-error" id="private-key-error"></div>
+      </div>
+      
+      <div class="note-card">
+        <div class="note-icon">⚠️</div>
+        <div class="note-text">
+          Keep your private key secure. Anyone with access to your private key has complete control over your wallet.
+        </div>
+      </div>
+      
+      <div class="button-row">
+        <button class="button button-outline" id="back-from-import">Back</button>
+        <button class="button" id="import-wallet-btn">Import Wallet</button>
+      </div>
+    </div>
+    
+    <div class="back-link">
+      <a href="scan.html">← Back to scan</a>
+    </div>
+  </div>
+
+  <script>
+    // View control
+    const selectMode = document.getElementById('select-mode');
+    const createMode = document.getElementById('create-mode');
+    const importMode = document.getElementById('import-mode');
+    
+    // Buttons
+    const createModeBtn = document.getElementById('create-mode-btn');
+    const importModeBtn = document.getElementById('import-mode-btn');
+    const backFromCreateBtn = document.getElementById('back-from-create');
+    const backFromImportBtn = document.getElementById('back-from-import');
+    const createWalletBtn = document.getElementById('create-wallet-btn');
+    const importWalletBtn = document.getElementById('import-wallet-btn');
+    
+    // Form elements
+    const privateKeyInput = document.getElementById('private-key');
+    const privateKeyError = document.getElementById('private-key-error');
+    
+    // Show create mode
+    createModeBtn.addEventListener('click', function() {
+      selectMode.classList.add('hidden');
+      createMode.classList.remove('hidden');
+    });
+    
+    // Show import mode
+    importModeBtn.addEventListener('click', function() {
+      selectMode.classList.add('hidden');
+      importMode.classList.remove('hidden');
+    });
+    
+    // Back to selection from create
+    backFromCreateBtn.addEventListener('click', function() {
+      createMode.classList.add('hidden');
+      selectMode.classList.remove('hidden');
+    });
+    
+    // Back to selection from import
+    backFromImportBtn.addEventListener('click', function() {
+      importMode.classList.add('hidden');
+      selectMode.classList.remove('hidden');
+    });
+    
+    // Create wallet
+    createWalletBtn.addEventListener('click', function() {
+      // Simulate wallet creation with a short delay
+      createWalletBtn.textContent = 'Creating...';
+      createWalletBtn.disabled = true;
+      
+      setTimeout(function() {
+        window.location.href = 'consent.html';
+      }, 1500);
+    });
+    
+    // Import wallet
+    importWalletBtn.addEventListener('click', function() {
+      const privateKey = privateKeyInput.value.trim();
+      
+      if (!privateKey) {
+        privateKeyError.textContent = 'Please enter a private key';
+        return;
+      }
+      
+      // Simulate wallet import with a short delay
+      importWalletBtn.textContent = 'Importing...';
+      importWalletBtn.disabled = true;
+      
+      setTimeout(function() {
+        window.location.href = 'consent.html';
+      }, 1500);
+    });
+  </script>
+</body>
+</html> 
