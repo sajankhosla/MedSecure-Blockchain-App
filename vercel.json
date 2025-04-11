@@ -1,11 +1,19 @@
 {
   "version": 2,
-  "buildCommand": "npx expo export:web",
-  "outputDirectory": "web-build",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npx expo export:web",
+        "outputDirectory": "web-build"
+      }
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/index.html"
     }
   ]
 } 
